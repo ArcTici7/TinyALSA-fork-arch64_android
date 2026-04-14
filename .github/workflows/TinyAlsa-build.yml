@@ -1,7 +1,7 @@
-name: Build tinyplay for Android ARM64
+name: Build full tinyalsa suite for Android ARM64
 
 on:
-  workflow_dispatch:   # Allows manual trigger from GitHub UI
+  workflow_dispatch:
 
 jobs:
   build:
@@ -20,17 +20,17 @@ jobs:
           echo "NDK_HOME=$(pwd)/android-ndk-r26d" >> $GITHUB_ENV
           echo "$(pwd)/android-ndk-r26d/toolchains/llvm/prebuilt/linux-x86_64/bin" >> $GITHUB_PATH
 
-      - name: Build tinyplay
+      - name: Build all tools
         working-directory: tinyalsa
         run: |
           export CC=aarch64-linux-android21-clang
           export AR=aarch64-linux-android-ar
           mkdir build && cd build
           cmake -DCMAKE_C_COMPILER=$CC -DCMAKE_AR=$AR -DCMAKE_SYSTEM_NAME=Android ..
-          make tinyplay
+          make
 
-      - name: Upload artifact
+      - name: Upload all binaries
         uses: actions/upload-artifact@v4
         with:
-          name: tinyplay-arm64
-          path: tinyalsa/build/tinyplay
+          name: tinyalsa-arm64-full
+          path: tinyalsa/build/
