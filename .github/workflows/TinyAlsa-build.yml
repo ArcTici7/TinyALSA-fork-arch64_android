@@ -31,9 +31,11 @@ jobs:
                 -DCMAKE_EXE_LINKER_FLAGS="-static" \
                 ..
           make
+          echo "=== Build directory contents ==="
+          ls -la
 
       - name: Upload all binaries
         uses: actions/upload-artifact@v4
         with:
           name: tinyalsa-static-arm64
-          path: tinyalsa/build/bin/
+          path: tinyalsa/build/
