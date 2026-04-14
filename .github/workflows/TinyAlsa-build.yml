@@ -26,7 +26,8 @@ jobs:
           cmake -DCMAKE_TOOLCHAIN_FILE=$NDK_HOME/build/cmake/android.toolchain.cmake \
                 -DANDROID_ABI=arm64-v8a \
                 -DANDROID_PLATFORM=android-21 \
-                -DCMAKE_C_FLAGS="-static" \
+                -DBUILD_SHARED_LIBS=OFF \
+                -DCMAKE_C_FLAGS="-static -pthread" \
                 -DCMAKE_EXE_LINKER_FLAGS="-static" \
                 ..
           make
@@ -35,4 +36,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tinyalsa-static-arm64
-          path: tinyalsa/build/
+          path: tinyalsa/build/bin/
