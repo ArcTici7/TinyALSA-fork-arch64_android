@@ -28,7 +28,7 @@ jobs:
                 -DANDROID_PLATFORM=android-21 \
                 -DBUILD_SHARED_LIBS=OFF \
                 -DCMAKE_C_FLAGS="-static -pthread" \
-                -DCMAKE_EXE_LINKER_FLAGS="-static" \
+                -DCMAKE_EXE_LINKER_FLAGS="-static -Wl,-z,max-page-size=0x1000 -Wl,-z,common-page-size=0x1000 -Wl,--no-undefined -Wl,-z,relro -Wl,-z,now" \
                 ..
           make
           echo "=== Build directory contents ==="
